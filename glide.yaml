@@ -1,0 +1,23 @@
+package: airbus-go
+import:
+- package: github.com/bsm/sarama-cluster
+  version: ~2.1.13
+- package: github.com/Shopify/sarama
+  version: ~1.17.0
+- package: github.com/cactus/go-statsd-client
+  version: ~3.1.0
+  subpackages:
+  - statsd
+- package: github.com/jinzhu/configor
+- package: github.com/patrickmn/go-cache
+  version: ~2.0.0
+- package: github.com/xeipuuv/gojsonschema
+- package: github.com/satori/go.uuid
+  version: ~1.1.0
+- package: github.com/elodina/go-avro
+- package: github.com/op/go-logging
+  version: ~1.0.0
+- package: bitbucket.mynt.myntra.com/plt/projects/plt/repos/airbus-go
+  version: v4.0.0
+  repo: https://bitbucket.mynt.myntra.com/plt/scm/plt/airbus-go.git
+  vcs: git
