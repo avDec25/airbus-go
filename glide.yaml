@@ -5,59 +5,80 @@ import:
   vcs: git
 - package: github.com/bsm/sarama-cluster
   version: c618e605e15c0d7535f6c96ff8efbb0dba4fd66c
+  vcs: git
 - package: github.com/Shopify/sarama
   version: 35324cf48e33d8260e1c7c18854465a904ade249
+  vcs: git
 - package: github.com/cactus/go-statsd-client
   version: 138b925ccdf617776955904ba7759fce64406cec
+  vcs: git
   subpackages:
   - statsd
 - package: github.com/davecgh/go-spew
   version: 346938d642f2ec3594ed81d874461961cd0faa76
+  vcs: git
   subpackages:
   - spew
 - package: github.com/jinzhu/configor
 - package: github.com/eapache/go-resiliency
   version: b86b1ec0dd4209a588dc1285cdd471e73525c0b3
+  vcs: git
   subpackages:
   - breaker
 - package: github.com/eapache/go-xerial-snappy
   version: bb955e01b9346ac19dc29eb16586c90ded99a98c
+  vcs: git
 - package: github.com/eapache/queue
   version: 44cc805cf13205b55f69e14bcb69867d1ae92f98
+  vcs: git
 - package: github.com/patrickmn/go-cache
   version: 1881a9bccb818787f68c52bfba648c6cf34c34fa
+  vcs: git
 - package: github.com/elodina/go-avro
   version: 0c8185d9a3ba82aeac98db3313a268a5b6df99b5
+  vcs: git
 - package: github.com/golang/snappy
   version: 553a641470496b2327abcac10b36396bd98e45c9
+  vcs: git
 - package: github.com/op/go-logging
   version: b2cb9fa56473e98db8caba80237377e83fe44db5
+  vcs: git
 - package: github.com/pierrec/lz4
   version: 5a3d2245f97fc249850e7802e3c01fad02a1c316
+  vcs: git
 - package: github.com/pierrec/xxHash
   version: 5a004441f897722c627870a981d02b29924215fa
+  vcs: git
   subpackages:
   - xxHash32
 - package: github.com/rcrowley/go-metrics
   version: 1f30fe9094a513ce4c700b9a54458bbb0c96996c
+  vcs: git
 - package: github.com/satori/go.uuid
   version: 879c5887cd475cd7864858769793b2ceb0d44feb
+  vcs: git
 - package: github.com/xeipuuv/gojsonpointer
   version: 6fe8760cad3569743d51ddbb243b26f8456742dc
+  vcs: git
 - package: github.com/xeipuuv/gojsonreference
   version: e02fc20de94c78484cd5ffb007f8af96be030a45
+  vcs: git
 - package: github.com/xeipuuv/gojsonschema
   version: 212d8a0df7acfab8bdd190a7a69f0ab7376edcc8
+  vcs: git
 
 
 testImports:
 - package: github.com/pmezard/go-difflib
   version: 5d4384ee4fb2527b0a1256a821ebfc92f91efefc
+  vcs: git
   subpackages:
   - difflib
 - package: github.com/stretchr/testify
   version: 77977386932ab1866a4b9556a7af1ae347531786
+  vcs: git
   subpackages:
   - assert
 - package: gopkg.in/yaml.v3
   version: 496545a6307b2a7d7a710fd516e5e16e8ab62dbc
+  vcs: git
