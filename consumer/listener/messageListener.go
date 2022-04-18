@@ -1,13 +1,13 @@
 package listener
 
 import (
-	"bitbucket.mynt.myntra.com/plt/airbus-go/avro"
-	"bitbucket.mynt.myntra.com/plt/airbus-go/constants"
-	"bitbucket.mynt.myntra.com/plt/airbus-go/entry"
-	"bitbucket.mynt.myntra.com/plt/airbus-go/logger"
-	"bitbucket.mynt.myntra.com/plt/airbus-go/stats"
 	"errors"
 	"github.com/Shopify/sarama"
+	"github.com/avDec25/airbus-go/avro"
+	"github.com/avDec25/airbus-go/constants"
+	"github.com/avDec25/airbus-go/entry"
+	"github.com/avDec25/airbus-go/logger"
+	"github.com/avDec25/airbus-go/stats"
 	goAvro "github.com/elodina/go-avro"
 	"time"
 )
@@ -78,17 +78,17 @@ RETRY:
 			headers[string(header.Key[:])] = string(header.Value[:])
 		}
 		err = this.messageProcessor.OnEvent(string(msg.Key[:]), value)
-		if err!=nil{
+		if err != nil {
 			goto SkipToEnd
 		}
 		err = this.messageHProcessor.OnEvent(string(msg.Key[:]), value, headers)
-		if err!=nil{
+		if err != nil {
 			goto SkipToEnd
 		}
 		err = this.messageCProcessor.OnEvent(string(msg.Key[:]), value, msg.Topic, msg.Partition, msg.Offset,
 			msg.Timestamp, msg.BlockTimestamp, headers)
 	}
-	SkipToEnd:
+SkipToEnd:
 	if err != nil && err.Error() != constants.ErrUnidentifiedSchema {
 		i++
 		if i <= this.numberOfRetries {

@@ -1,18 +1,18 @@
 package executor
 
 import (
-	"bitbucket.mynt.myntra.com/plt/airbus-go/bcp"
-	"bitbucket.mynt.myntra.com/plt/airbus-go/constants"
-	"bitbucket.mynt.myntra.com/plt/airbus-go/consumer/cluster"
-	"bitbucket.mynt.myntra.com/plt/airbus-go/consumer/listener"
-	"bitbucket.mynt.myntra.com/plt/airbus-go/consumer/metadata"
-	"bitbucket.mynt.myntra.com/plt/airbus-go/entry"
-	"bitbucket.mynt.myntra.com/plt/airbus-go/logger"
-	"bitbucket.mynt.myntra.com/plt/airbus-go/stats"
-	"bitbucket.mynt.myntra.com/plt/airbus-go/util"
 	"errors"
 	"fmt"
 	"github.com/Shopify/sarama"
+	"github.com/avDec25/airbus-go/bcp"
+	"github.com/avDec25/airbus-go/constants"
+	"github.com/avDec25/airbus-go/consumer/cluster"
+	"github.com/avDec25/airbus-go/consumer/listener"
+	"github.com/avDec25/airbus-go/consumer/metadata"
+	"github.com/avDec25/airbus-go/entry"
+	"github.com/avDec25/airbus-go/logger"
+	"github.com/avDec25/airbus-go/stats"
+	"github.com/avDec25/airbus-go/util"
 	saramaCluster "github.com/bsm/sarama-cluster"
 	"strings"
 	"sync"
@@ -97,8 +97,7 @@ func (this *listenerExecutor) Execute(entity *entry.EventListenerEntity) error {
 		return err
 	}
 
-	
-	hosts, err:=this.getHostList(entity.AirbusEvent.AppName, entity.AirbusEvent.EventName, this.serviceUrl)
+	hosts, err := this.getHostList(entity.AirbusEvent.AppName, entity.AirbusEvent.EventName, this.serviceUrl)
 	for i := 0; i < this.consumerCount; i++ {
 		this.offsetStash[i] = saramaCluster.NewOffsetStash()
 		this.airbusConsumer[i] = cluster.GetAirbusConsumer(hosts, []string{this.topic}, this.groupId, this.config)
@@ -279,7 +278,7 @@ func (this *listenerExecutor) isOnceRequired(entity *entry.EventListenerEntity, 
 	return false
 }
 
-func (this *listenerExecutor) getHostList(appName string, eventName string, serviceUrl string) ([]string, error){
+func (this *listenerExecutor) getHostList(appName string, eventName string, serviceUrl string) ([]string, error) {
 	topicNameWithoutPrefix, err := util.GetTopicName("", appName, eventName)
 	if err != nil {
 		return nil, fmt.Errorf("Error getting topicName: %s", err)
@@ -289,13 +288,13 @@ func (this *listenerExecutor) getHostList(appName string, eventName string, serv
 	if err != nil {
 		return nil, fmt.Errorf("Error getting GetTopicDetailsCache: %s", err)
 	}
-	clusterId:=topicEntry.ClusterId
-	if(topicEntry.IsInMigration && util.IsOffsetInMigration(serviceUrl, this.groupId)){
-		clusterId=topicEntry.ClusterIdOld
+	clusterId := topicEntry.ClusterId
+	if topicEntry.IsInMigration && util.IsOffsetInMigration(serviceUrl, this.groupId) {
+		clusterId = topicEntry.ClusterIdOld
 	}
 	hostslist, err := util.GetBootstrapServers(serviceUrl, clusterId)
 	if err != nil {
 		return nil, fmt.Errorf("Error getting GetBootstrapServers: %s", err)
 	}
-	return strings.Split(hostslist,","), nil
+	return strings.Split(hostslist, ","), nil
 }

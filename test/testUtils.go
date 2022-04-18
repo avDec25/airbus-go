@@ -1,15 +1,15 @@
 package test
 
 import (
-	"bitbucket.mynt.myntra.com/plt/airbus-go/constants"
-	"bitbucket.mynt.myntra.com/plt/airbus-go/consumer"
-	"bitbucket.mynt.myntra.com/plt/airbus-go/consumer/cluster"
-	"bitbucket.mynt.myntra.com/plt/airbus-go/entry"
-	"bitbucket.mynt.myntra.com/plt/airbus-go/logger"
-	"bitbucket.mynt.myntra.com/plt/airbus-go/producer"
-	"bitbucket.mynt.myntra.com/plt/airbus-go/util"
 	"bytes"
 	"errors"
+	"github.com/avDec25/airbus-go/constants"
+	"github.com/avDec25/airbus-go/consumer"
+	"github.com/avDec25/airbus-go/consumer/cluster"
+	"github.com/avDec25/airbus-go/entry"
+	"github.com/avDec25/airbus-go/logger"
+	"github.com/avDec25/airbus-go/producer"
+	"github.com/avDec25/airbus-go/util"
 	"math/rand"
 	"strconv"
 )

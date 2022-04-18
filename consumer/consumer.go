@@ -1,18 +1,18 @@
 package consumer
 
 import (
-	"bitbucket.mynt.myntra.com/plt/airbus-go/constants"
-	airbusCluster "bitbucket.mynt.myntra.com/plt/airbus-go/consumer/cluster"
-	"bitbucket.mynt.myntra.com/plt/airbus-go/consumer/errorHandler"
-	"bitbucket.mynt.myntra.com/plt/airbus-go/consumer/executor"
-	"bitbucket.mynt.myntra.com/plt/airbus-go/consumer/metadata"
-	"bitbucket.mynt.myntra.com/plt/airbus-go/entry"
-	"bitbucket.mynt.myntra.com/plt/airbus-go/logger"
-	"bitbucket.mynt.myntra.com/plt/airbus-go/stats"
-	"bitbucket.mynt.myntra.com/plt/airbus-go/util"
 	"errors"
 	"fmt"
 	"github.com/Shopify/sarama"
+	"github.com/avDec25/airbus-go/constants"
+	airbusCluster "github.com/avDec25/airbus-go/consumer/cluster"
+	"github.com/avDec25/airbus-go/consumer/errorHandler"
+	"github.com/avDec25/airbus-go/consumer/executor"
+	"github.com/avDec25/airbus-go/consumer/metadata"
+	"github.com/avDec25/airbus-go/entry"
+	"github.com/avDec25/airbus-go/logger"
+	"github.com/avDec25/airbus-go/stats"
+	"github.com/avDec25/airbus-go/util"
 	"os"
 	"os/signal"
 	"strconv"
@@ -315,7 +315,7 @@ func (this *consumer) initializeListener(entity *entry.EventListenerEntity, topi
 	config.Consumer.Return.Errors = true
 	config.Version = constants.KafkaVersion
 	if config.ClientID == constants.DefaultClientId {
-		config.ClientID = this.appName+"-"+topic
+		config.ClientID = this.appName + "-" + topic
 	}
 
 	// Default fallbacks for Airbus Event Listeners

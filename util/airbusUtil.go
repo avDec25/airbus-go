@@ -1,32 +1,33 @@
 package util
 
 import (
-	"bitbucket.mynt.myntra.com/plt/airbus-go/cache"
-	"bitbucket.mynt.myntra.com/plt/airbus-go/constants"
-	"bitbucket.mynt.myntra.com/plt/airbus-go/entry"
 	"encoding/json"
 	"errors"
 	"fmt"
+	"github.com/avDec25/airbus-go/cache"
+	"github.com/avDec25/airbus-go/constants"
+	"github.com/avDec25/airbus-go/entry"
 	"github.com/satori/go.uuid"
+	"os"
 	"strconv"
 	"strings"
 	"time"
-	"os"
 )
-var SDK_VERSION="4.0.0"
+
+var SDK_VERSION = "4.0.0"
 var dcConfig = make(map[string]string)
 
 func GetProducerConfig(serviceUrl string) (map[string]interface{}, error) {
-	query,err:=getRequestMetaParams()
-	if err!=nil{
+	query, err := getRequestMetaParams()
+	if err != nil {
 		return nil, err
 	}
 	return getConfig(serviceUrl, constants.ProducerConfigPrefix+query)
 }
 
 func GetConsumerConfig(serviceUrl string) (map[string]interface{}, error) {
-	query,err:=getRequestMetaParams()
-	if err!=nil{
+	query, err := getRequestMetaParams()
+	if err != nil {
 		return nil, err
 	}
 	return getConfig(serviceUrl, constants.ConsumerConfigPrefix+query)
@@ -75,7 +76,7 @@ func GetDCPrefix(serviceUrl string) (string, error) {
 	return prefix, nil
 }
 
-func GetClusterDetails(serviceUrl string, clusterId int)(map[string]interface{}, error){
+func GetClusterDetails(serviceUrl string, clusterId int) (map[string]interface{}, error) {
 	headers := make(map[string]string)
 	headers["Accept"] = "application/json"
 	headers["Content-Type"] = "application/json"
@@ -89,22 +90,22 @@ func GetClusterDetails(serviceUrl string, clusterId int)(map[string]interface{},
 	data := response.(map[string]interface{})
 	if statusCode := data["status"].(map[string]interface{})["statusCode"].(float64); statusCode == 3 {
 		clusterdetails := data["clusterEntries"].([]interface{})
-		
-		if clusterdetails != nil && len(clusterdetails) > 0  {
+
+		if clusterdetails != nil && len(clusterdetails) > 0 {
 			return clusterdetails[0].(map[string]interface{}), nil
 		}
 	}
 	return nil, errors.New(constants.ErrorFetchingClusterEntry)
-}	
+}
 
-func GetBootstrapServers(serviceUrl string, clusterId int)(string, error){
+func GetBootstrapServers(serviceUrl string, clusterId int) (string, error) {
 	clusterDetails, err := GetClusterDetails(serviceUrl, clusterId)
-	if err!=nil{
+	if err != nil {
 		return "", err
 	}
 	var bootstrapServers map[string]string
 	if byt, err := json.Marshal(clusterDetails["bootstrapServers"]); err == nil {
-		
+
 		if err = json.Unmarshal(byt, &bootstrapServers); err != nil {
 			return "", err
 		}
@@ -114,16 +115,16 @@ func GetBootstrapServers(serviceUrl string, clusterId int)(string, error){
 	}
 
 	dc, err := GetDCPrefix(serviceUrl)
-	if err!=nil{
+	if err != nil {
 		return "", err
 	}
-	val, exists:= bootstrapServers[dc]
-	if !exists{
-		return "", errors.New("cannot find dc:"+dc)
+	val, exists := bootstrapServers[dc]
+	if !exists {
+		return "", errors.New("cannot find dc:" + dc)
 	}
-	return val,nil
+	return val, nil
 }
-		
+
 func IsRecoverableClient(serviceUrl string) (bool, error) {
 	response, err := getConfig(serviceUrl, constants.DCRecoveryConfigPath)
 	if err != nil {
@@ -306,14 +307,13 @@ func GetConsumerEntity(serviceUrl, appName string) ([]entry.AppEntry, error) {
 	return nil, errors.New(constants.ErrorAppNameNotFound)
 }
 
-
 func IsOffsetInMigration(serviceUrl, consumerGroup string) bool {
 	headers := make(map[string]string)
 	headers["Accept"] = "application/json"
 	headers["Content-Type"] = "application/json"
 	headers["Authorization"] = constants.Authorization
 
-	response, err := HttpGet(fmt.Sprintf("%s%s%s", serviceUrl, "/bus/v2/offset/" , consumerGroup), headers)
+	response, err := HttpGet(fmt.Sprintf("%s%s%s", serviceUrl, "/bus/v2/offset/", consumerGroup), headers)
 	if err != nil {
 		log.Error(err.Error())
 		return false
@@ -322,18 +322,18 @@ func IsOffsetInMigration(serviceUrl, consumerGroup string) bool {
 	data := response.(map[string]interface{})
 	if statusCode := data["status"].(map[string]interface{})["statusCode"].(float64); statusCode == 3 {
 		clusterdetails := data["data"].([]interface{})
-		
-		if clusterdetails != nil && len(clusterdetails) > 0  {
+
+		if clusterdetails != nil && len(clusterdetails) > 0 {
 			return clusterdetails[0].(map[string]bool)["isInMigration"]
 		}
 	}
 	return false
 }
-func getRequestMetaParams() (string, error){
+func getRequestMetaParams() (string, error) {
 	hostname, err := os.Hostname()
-	if err!=nil{
+	if err != nil {
 		return "", err
 	}
-	query:="?hostname="+hostname+"&sdkversion="+SDK_VERSION
-	return query,nil
+	query := "?hostname=" + hostname + "&sdkversion=" + SDK_VERSION
+	return query, nil
 }

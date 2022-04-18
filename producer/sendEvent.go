@@ -1,15 +1,15 @@
 package producer
 
 import (
-	"bitbucket.mynt.myntra.com/plt/airbus-go/avro"
-	"bitbucket.mynt.myntra.com/plt/airbus-go/constants"
-	"bitbucket.mynt.myntra.com/plt/airbus-go/entry"
 	"encoding/json"
 	"errors"
+	"fmt"
 	"github.com/Shopify/sarama"
+	"github.com/avDec25/airbus-go/avro"
+	"github.com/avDec25/airbus-go/constants"
+	"github.com/avDec25/airbus-go/entry"
 	goAvro "github.com/elodina/go-avro"
 	"github.com/xeipuuv/gojsonschema"
-	"fmt"
 )
 
 func (this *producer) validateAndSend(topic string, topicEntry *entry.TopicEntry, event *entry.EventEntry) (int32, int64, error) {
@@ -72,9 +72,9 @@ func (this *producer) send(topic string, event *entry.EventEntry) (int32, int64,
 			Value:   sarama.ByteEncoder(event.Data.(string)),
 			Headers: headers,
 		}
-		saramaProducer, err:=GetProducerFactoryInstance().getProducer(event.AppName, event.EventName, this.sync, this.config, this.clientProvidedAirbusConfig.ClientCallback, this.serviceUrl)
-		if err!=nil{
-			return 0,0, fmt.Errorf("Error getting producer from factory: %s", err)
+		saramaProducer, err := GetProducerFactoryInstance().getProducer(event.AppName, event.EventName, this.sync, this.config, this.clientProvidedAirbusConfig.ClientCallback, this.serviceUrl)
+		if err != nil {
+			return 0, 0, fmt.Errorf("Error getting producer from factory: %s", err)
 		}
 		return saramaProducer.Send(message)
 	default:
@@ -154,9 +154,9 @@ func (this *producer) sendAvro(topic string, topicEntry *entry.TopicEntry, event
 				Value:   sarama.ByteEncoder(value),
 				Headers: headers,
 			}
-			saramaProducer, err:=GetProducerFactoryInstance().getProducer(event.AppName, event.EventName, this.sync, this.config, this.clientProvidedAirbusConfig.ClientCallback, this.serviceUrl)
-			if err!=nil{
-				return 0,0, fmt.Errorf("Error getting producer from Factory: %s",err)
+			saramaProducer, err := GetProducerFactoryInstance().getProducer(event.AppName, event.EventName, this.sync, this.config, this.clientProvidedAirbusConfig.ClientCallback, this.serviceUrl)
+			if err != nil {
+				return 0, 0, fmt.Errorf("Error getting producer from Factory: %s", err)
 			}
 			return saramaProducer.Send(message)
 		}

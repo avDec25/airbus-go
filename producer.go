@@ -1,8 +1,8 @@
 package airbus_go
 
 import (
-	"bitbucket.mynt.myntra.com/plt/airbus-go/entry"
-	"bitbucket.mynt.myntra.com/plt/airbus-go/producer"
+	"github.com/avDec25/airbus-go/entry"
+	"github.com/avDec25/airbus-go/producer"
 )
 
 func NewAirbusProducer(serviceUrl, appName string, config map[string]interface{}, clientCallback entry.ListenableCallback, sync bool) (producer.Producer, error) {

@@ -1,11 +1,11 @@
 package bcp
 
 import (
-	"bitbucket.mynt.myntra.com/plt/airbus-go/constants"
-	"bitbucket.mynt.myntra.com/plt/airbus-go/entry"
-	"bitbucket.mynt.myntra.com/plt/airbus-go/logger"
-	"bitbucket.mynt.myntra.com/plt/airbus-go/util"
 	"github.com/Shopify/sarama"
+	"github.com/avDec25/airbus-go/constants"
+	"github.com/avDec25/airbus-go/entry"
+	"github.com/avDec25/airbus-go/logger"
+	"github.com/avDec25/airbus-go/util"
 	"strings"
 )
 

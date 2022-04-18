@@ -1,10 +1,10 @@
 package stats
 
 import (
-	"bitbucket.mynt.myntra.com/plt/airbus-go/logger"
-	"bitbucket.mynt.myntra.com/plt/airbus-go/constants"
-	"bitbucket.mynt.myntra.com/plt/airbus-go/util"
 	"fmt"
+	"github.com/avDec25/airbus-go/constants"
+	"github.com/avDec25/airbus-go/logger"
+	"github.com/avDec25/airbus-go/util"
 )
 
 var consumerStatsDClient StatsdCollector
@@ -44,7 +44,7 @@ func getStatsdClient(serviceUrl, prefix string) StatsdCollector {
 		log.Errorf("Could not initialize statsd client: %v", err)
 		return c // returning Noop Client
 	}
-	log=logger.GetLogger()
+	log = logger.GetLogger()
 	log.Info("Connected with Statsd Collector")
 	return c
 }

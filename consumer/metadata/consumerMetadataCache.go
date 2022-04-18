@@ -1,7 +1,7 @@
 package metadata
 
 import (
-	"bitbucket.mynt.myntra.com/plt/airbus-go/entry"
+	"github.com/avDec25/airbus-go/entry"
 	"sync"
 )
 

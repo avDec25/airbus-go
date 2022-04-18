@@ -1,9 +1,9 @@
 package util
 
 import (
-	"bitbucket.mynt.myntra.com/plt/airbus-go/constants"
 	"encoding/json"
 	"errors"
+	"github.com/avDec25/airbus-go/constants"
 	"io"
 	"io/ioutil"
 	"net/http"

@@ -1,13 +1,13 @@
 package producer
 
 import (
-	"bitbucket.mynt.myntra.com/plt/airbus-go/constants"
-	"bitbucket.mynt.myntra.com/plt/airbus-go/entry"
-	"bitbucket.mynt.myntra.com/plt/airbus-go/stats"
-	"bitbucket.mynt.myntra.com/plt/airbus-go/util"
 	"errors"
 	"fmt"
 	"github.com/Shopify/sarama"
+	"github.com/avDec25/airbus-go/constants"
+	"github.com/avDec25/airbus-go/entry"
+	"github.com/avDec25/airbus-go/stats"
+	"github.com/avDec25/airbus-go/util"
 	"os"
 	"os/signal"
 	"strconv"
@@ -23,16 +23,15 @@ type Producer interface {
 }
 
 type producer struct {
-	hosts               []string
-	schemaRegistry      []string
-	config              *sarama.Config
-	serviceUrl          string
-	statsD              stats.StatsdCollector
-	asyncAirbusProducer sarama.AsyncProducer
-	syncAirbusProducer  sarama.SyncProducer
-	sync                bool
+	hosts                      []string
+	schemaRegistry             []string
+	config                     *sarama.Config
+	serviceUrl                 string
+	statsD                     stats.StatsdCollector
+	asyncAirbusProducer        sarama.AsyncProducer
+	syncAirbusProducer         sarama.SyncProducer
+	sync                       bool
 	clientProvidedAirbusConfig *AirbusProducer
-	
 }
 
 const (
@@ -73,9 +72,9 @@ func NewProducer(airbusProducer *AirbusProducer) (Producer, error) {
 	}
 
 	p := &producer{
-		config:         sarama.NewConfig(),
-		serviceUrl:     airbusProducer.ServiceUrl,
-		statsD:         stats.GetProducerStatsdClient(airbusProducer.ServiceUrl),
+		config:     sarama.NewConfig(),
+		serviceUrl: airbusProducer.ServiceUrl,
+		statsD:     stats.GetProducerStatsdClient(airbusProducer.ServiceUrl),
 	}
 	p.clientProvidedAirbusConfig = airbusProducer
 	for key, value := range config {
@@ -159,7 +158,7 @@ func NewProducer(airbusProducer *AirbusProducer) (Producer, error) {
 	// 	p.sync = true
 	// } else {
 	// 	p.saramaProducer = getAsyncAirbusProducer(p.hosts, p.config,airbusProducer.ClientCallback, stats.GetProducerStatsdClient(airbusProducer.ServiceUrl))
-		
+
 	// }
 
 	log.Infof("Producer Config: %+v\n", p.config.Producer)
@@ -190,7 +189,7 @@ func (this *producer) AsyncSend(event *entry.EventEntry) error {
 	if this.sync {
 		return errors.New(constants.SyncProducerError)
 	}
-	_,_,r:= this.sendHandle(event)
+	_, _, r := this.sendHandle(event)
 	return r
 }
 
@@ -232,7 +231,7 @@ func (this *producer) SyncSend(event *entry.EventEntry) (int32, int64, error) {
 		return 0, 0, errors.New(constants.AsyncProducerError)
 	}
 	return this.sendHandle(event)
-	
+
 }
 
 func (this *producer) Close() {

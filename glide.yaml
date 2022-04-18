@@ -17,7 +17,7 @@ import:
 - package: github.com/elodina/go-avro
 - package: github.com/op/go-logging
   version: ~1.0.0
-- package: bitbucket.mynt.myntra.com/plt/projects/plt/repos/airbus-go
+- package: github.com/avDec25/airbus-go
   version: v4.0.0
-  repo: https://bitbucket.mynt.myntra.com/plt/scm/plt/airbus-go.git
+  repo: https://github.com/avDec25/airbus-go.git
   vcs: git

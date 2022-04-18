@@ -1,7 +1,7 @@
 package cache
 
 import (
-	"bitbucket.mynt.myntra.com/plt/airbus-go/constants"
+	"github.com/avDec25/airbus-go/constants"
 	"github.com/patrickmn/go-cache"
 )
 

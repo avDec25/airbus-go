@@ -1,10 +1,10 @@
 package test
 
 import (
-	"github.com/op/go-logging"
-	"bitbucket.mynt.myntra.com/plt/airbus-go/logger"
-	"bitbucket.mynt.myntra.com/plt/airbus-go/entry"
 	"fmt"
+	"github.com/avDec25/airbus-go/entry"
+	"github.com/avDec25/airbus-go/logger"
+	"github.com/op/go-logging"
 	"github.com/stretchr/testify/assert"
 	"testing"
 	"time"
@@ -49,7 +49,7 @@ func TestAsyncSend(t *testing.T) {
 			assert.Nil(t, err, "Error should be nil")
 		}
 	}
-	time.Sleep(time.Second*10)
+	time.Sleep(time.Second * 10)
 	prod.Close()
 }
 

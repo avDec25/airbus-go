@@ -17,8 +17,8 @@ This is the go-SDK for airbus for producing and consuming the messages.
 ###### Using with GLIDE
 Add this to your `glide.yaml`
 ```
-- package: bitbucket.mynt.myntra.com/plt/airbus-go
-  repo: git@bitbucket.mynt.myntra.com/plt:myntra/airbus-go
+- package: github.com/avDec25/airbus-go
+  repo: git@github.com/avDec25:myntra/airbus-go
   version: <version>
   vcs: git
 ```
@@ -27,11 +27,11 @@ then run `glide up`
 ###### Using with GO get
 Run this command on commandline to shift to `ssh` from `https` repo pulling
 ```
-git config --global url."git@bitbucket.mynt.myntra.com/plt:".insteadOf "https://bitbucket.mynt.myntra.com/plt/"
+git config --global url."git@github.com/avDec25:".insteadOf "https://github.com/avDec25/"
 ```
 then run
 ```
-go get bitbucket.mynt.myntra.com/plt/airbus-go
+go get github.com/avDec25/airbus-go
 ```
 
 ### Example to run Producer

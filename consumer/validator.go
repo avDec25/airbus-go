@@ -1,11 +1,11 @@
 package consumer
 
 import (
-	"bitbucket.mynt.myntra.com/plt/airbus-go/constants"
-	"bitbucket.mynt.myntra.com/plt/airbus-go/entry"
-	"bitbucket.mynt.myntra.com/plt/airbus-go/util"
 	"errors"
 	"fmt"
+	"github.com/avDec25/airbus-go/constants"
+	"github.com/avDec25/airbus-go/entry"
+	"github.com/avDec25/airbus-go/util"
 	"time"
 )
 

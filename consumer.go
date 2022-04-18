@@ -1,9 +1,9 @@
 package airbus_go
 
 import (
-	"bitbucket.mynt.myntra.com/plt/airbus-go/consumer"
-	"bitbucket.mynt.myntra.com/plt/airbus-go/consumer/cluster"
-	"bitbucket.mynt.myntra.com/plt/airbus-go/entry"
+	"github.com/avDec25/airbus-go/consumer"
+	"github.com/avDec25/airbus-go/consumer/cluster"
+	"github.com/avDec25/airbus-go/entry"
 )
 
 func NewAirbusConsumer(appName, serviceUrl string, config map[string]interface{}, eventListeners []*entry.EventListenerEntity) (chan bool, error) {

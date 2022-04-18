@@ -1,7 +1,7 @@
 package producer
 
 import (
-	"bitbucket.mynt.myntra.com/plt/airbus-go/entry"
+	"github.com/avDec25/airbus-go/entry"
 	"github.com/stretchr/testify/assert"
 	"strconv"
 	"testing"

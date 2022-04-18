@@ -1,11 +1,11 @@
 package producer
 
 import (
-	"bitbucket.mynt.myntra.com/plt/airbus-go/constants"
-	"bitbucket.mynt.myntra.com/plt/airbus-go/entry"
 	"github.com/Shopify/sarama"
+	"github.com/avDec25/airbus-go/constants"
+	"github.com/avDec25/airbus-go/entry"
+	"github.com/avDec25/airbus-go/stats"
 	"sync"
-	"bitbucket.mynt.myntra.com/plt/airbus-go/stats"
 )
 
 type AirbusProducer struct {
@@ -16,40 +16,38 @@ type AirbusProducer struct {
 	Sync           bool
 }
 
-
-
-type SaramaSyncProducer struct{
+type SaramaSyncProducer struct {
 	sarama.SyncProducer
-	statsD              stats.StatsdCollector
+	statsD stats.StatsdCollector
 }
-type SaramaAsyncProducer struct{
+type SaramaAsyncProducer struct {
 	sarama.AsyncProducer
-	wg  sync.WaitGroup
-	close  chan bool
-	clientCallback      entry.ListenableCallback
-	statsD              stats.StatsdCollector
+	wg             sync.WaitGroup
+	close          chan bool
+	clientCallback entry.ListenableCallback
+	statsD         stats.StatsdCollector
 }
 
-type SaramaProducer interface{
+type SaramaProducer interface {
 	Send(message *sarama.ProducerMessage) (int32, int64, error)
 	Close()
 }
 
-func (this SaramaAsyncProducer) Send(message *sarama.ProducerMessage) (int32, int64, error){
+func (this SaramaAsyncProducer) Send(message *sarama.ProducerMessage) (int32, int64, error) {
 	this.Input() <- message
-	return 0,0,nil
+	return 0, 0, nil
 }
-func (this SaramaAsyncProducer) Close(){
+func (this SaramaAsyncProducer) Close() {
 	this.AsyncClose()
 	this.close <- true
 	//wait for the producer to close
 	this.wg.Wait()
-	if this.statsD != nil{
+	if this.statsD != nil {
 		this.statsD.Close()
 	}
 }
 
-func (this SaramaSyncProducer) Send(message *sarama.ProducerMessage)(int32, int64, error){
+func (this SaramaSyncProducer) Send(message *sarama.ProducerMessage) (int32, int64, error) {
 	//
 	partition, offset, err := this.SendMessage(message)
 	if err != nil {
@@ -66,12 +64,9 @@ func (this SaramaSyncProducer) Send(message *sarama.ProducerMessage)(int32, int6
 	return partition, offset, err
 }
 
-func (this SaramaSyncProducer) Close(){
+func (this SaramaSyncProducer) Close() {
 	this.SyncProducer.Close()
-	if this.statsD != nil{
+	if this.statsD != nil {
 		this.statsD.Close()
 	}
 }
-
-
-
