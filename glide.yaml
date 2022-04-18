@@ -1,5 +1,8 @@
 package: airbus-go
 import:
+- package: github.com/avDec25/airbus-go
+  repo: https://github.com/avDec25/airbus-go.git
+  vcs: git
 - package: github.com/bsm/sarama-cluster
   version: c618e605e15c0d7535f6c96ff8efbb0dba4fd66c
 - package: github.com/Shopify/sarama
@@ -45,9 +48,7 @@ import:
   version: e02fc20de94c78484cd5ffb007f8af96be030a45
 - package: github.com/xeipuuv/gojsonschema
   version: 212d8a0df7acfab8bdd190a7a69f0ab7376edcc8
-- package: github.com/avDec25/airbus-go
-  repo: https://github.com/avDec25/airbus-go.git
-  vcs: git
+
 
 testImports:
 - package: github.com/pmezard/go-difflib
