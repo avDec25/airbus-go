@@ -18,6 +18,5 @@ import:
 - package: github.com/op/go-logging
   version: ~1.0.0
 - package: github.com/avDec25/airbus-go
-  version: v4.0.0
   repo: https://github.com/avDec25/airbus-go.git
   vcs: git
